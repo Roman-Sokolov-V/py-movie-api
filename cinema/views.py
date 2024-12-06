@@ -1,6 +1,4 @@
-from cinema.models import Movie
 from cinema.serializers import MovieSerializer
-from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -11,7 +9,7 @@ from cinema.models import Movie
 
 
 @api_view(["GET", "POST"])
-def list_create_movie(request):
+def list_movie(request):
     if request.method == "GET":
         movies = Movie.objects.all()
         serializer = MovieSerializer(movies, many=True)
@@ -26,7 +24,7 @@ def list_create_movie(request):
 
 
 @api_view(["GET", "PUT", "DELETE"])
-def show_update_delete_movie(request, pk):
+def detail_movie(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
     if request.method == "GET":
         serializer = MovieSerializer(movie)
